@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICT - ศูนย์เทคโนโลยีสารสนเทศและการสื่อสาร</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="https://blm-school.github.io/ict_ict/images/logo_ict.png">
+    <link href="https://cdn.jsdelivr.net/gh/blm-school/ict@main/index_css.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/blm-school/ict@main/calendar_css.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/blm-school/ict@main/form_css.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/blm-school/ict@main/star.css">
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header" id="header" style="background: #383838">
+        <div onclick="scrollToSection('home')" class="logo-container" style="cursor: pointer;">
+            <img src="https://blm-school.github.io/ict/images/logo_ict.png">
+            <div class="logo-text">ICT - ศูนย์เทคโนโลยีสารสนเทศและการสื่อสาร</div>
+        </div>
+        <nav class="main-menu" id="mainMenu">
+            <span onclick="scrollToSection('home')" class="menu-item active" style="cursor:pointer;">Home</span>
+            <span onclick="scrollToSection('about')" class="menu-item" style="cursor:pointer;">About</span>
+            <span onclick="scrollToSection('contact')" class="menu-item" style="cursor:pointer;">Contact</span>
+        </nav>
+
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="snow-stars-background">
+            <div class="snow-star"></div>
+            <div class="snow-star"></div>
+            <div class="snow-star"></div>
+            <div class="snow-star"></div>
+            <div class="snow-star"></div>
+            <div class="snow-star"></div>
+            <div class="snow-star"></div>
+            <div class="snow-star"></div>
+            <div class="snow-star"></div>
+            <div class="snow-star"></div>
+            <div class="snow-star"></div>
+            <div class="snow-star"></div>
+        </div>
+    </header>
+
+
+
+    <!-- Home Section -->
+    <section id="home" class="section">
+        <div class="coverflow-wrapper">
+
+            <!-- Title & Description (ดึงจาก Google Sheet) -->
+            <div class="info">
+                <h2 id="current-title">กำลังโหลด...</h2>
+                <p id="current-description">กรุณารอสักครู่</p>
+            </div>
+
+            <div class="coverflow-container" tabindex="0">
+
+                <!-- Coverflow (JS จะสร้าง item ใส่ตรงนี้) -->
+                <div class="coverflow" id="coverflow">
+                    <!-- dynamic items -->
+                </div>
+
+                <!-- Navigation -->
+                <button class="nav-button prev" onclick="navigate(-1); stopAutoplay()">‹</button>
+                <button class="nav-button next" onclick="navigate(1); stopAutoplay()">›</button>
+
+                <!-- Dots -->
+                <div class="dots-container" id="dots"></div>
+
+                <!-- Play / Pause -->
+                <button class="play-pause-button" onclick="toggleAutoplay()">
+                    <span class="play-icon">▶</span>
+                    <span class="pause-icon">❚❚</span>
+                </button>
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="about-content">
+            <div class="about-header">
+                <h2>ICT - ศูนย์เทคโนโลยีสารสนเทศและการสื่อสาร</h2>
+                <p class="scale-150">งานศูนย์เทคโนโลยีสารสนเทศและการสื่อสาร โรงเรียนบางละมุง</p>
+            </div>
+
+            <div class="container-c">
+                <br>
+                <p class="text-red-800 text-center font-semibold scale-150">กรุณากรอกข้อมูลล่วงหน้าอย่างน้อย 3 วัน</p>
+                <br>
+                <p class="text-red-800 text-center scale-150">กรณีกรอกข้อมูลล่วงหน้าน้อยกว่า 3 วัน กรุณาติดต่อ
+                    <b>ครูพงศกร แสงเพิ่ม</b> โดยตรงที่เบอร์โทรศัพท์ 0924898222
+                </p>
+                <br>
+                <div class="calendar-nav">
+                    <button class="nav-button-c" id="prev-month">← เดือนก่อน</button>
+                    <div class="current-month" id="current-month"></div>
+                    <button class="nav-button-c" id="next-month">เดือนถัดไป →</button>
+                </div>
+                <div id="calendar-container">
+                    <div class="loading">กำลังโหลดข้อมูล...</div>
+                </div>
+            </div>
+            <div class="day-modal" id="day-modal">
+                <div class="day-modal-content">
+                    <div class="day-modal-header">
+                        <button class="close-button" id="close-day-modal">×</button>
+                        <h2 class="day-modal-title" id="day-modal-title"></h2>
+                    </div>
+                    <div class="day-modal-body" id="day-modal-body"></div>
+                </div>
+            </div>
+            <div class="event-modal" id="event-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close-button" id="close-modal">×</button>
+                        <h2 class="modal-title" id="modal-title"></h2>
+                    </div>
+                    <div class="modal-body" id="modal-body"></div>
+                </div>
+            </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="contact-content">
+            <div class="contact-header">
+                <h2>ติดต่อประสานงาน</h2>
+                <p class="scale-150">กรุณากรอกข้อมูลเพื่อประสานงานด้าน ICT อย่างมีประสิทธิภาพ</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto px-4">
+                <!-- Form -->
+                <div class="contact-form-section">
+                    <form id="ictForm" class="contact-form">
+                        <!-- ชื่อ นามสกุล -->
+                        <div class="form-group">
+                            <label>
+                                👤 ชื่อ - นามสกุล ผู้แจ้ง *
+                            </label>
+                            <input type="text" name="fullName" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+                                placeholder="กรุณากรอกชื่อ-นามสกุล" />
+                        </div>
+                        <!-- เบอร์โทรติดต่อ -->
+                        <div class="form-group">
+                            <label>
+                                📞 เบอร์โทรติดต่อ *
+                            </label>
+                            <input type="tel" name="phoneNumber" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+                                placeholder="กรุณากรอกเบอร์โทรติดต่อ เช่น 081-234-5678" />
+                        </div>
+                        <!-- ชื่องานหรือกิจกรรม -->
+                        <div class="form-group">
+                            <label>
+                                🎯 ชื่องานหรือกิจกรรมที่จะจัด *
+                            </label>
+                            <input type="text" name="eventName" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+                                placeholder="เช่น การประชุมประจำเดือน, งานสัมมนา, ฯลฯ" />
+                        </div>
+                        <!-- วันที่และเวลา -->
+                        <div class="form-group">
+
+                            <label>
+                                📅 วันที่จัดงาน *
+                            </label>
+                            <input type="date" name="eventDate" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200" />
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                ⏰ ช่วงเวลา *
+                            </label>
+                            <input type="text" name="eventTime" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+                                placeholder="เช่น 09:00-16:00 น." />
+                        </div>
+
+                        <!-- ประสานงานในด้าน -->
+                        <div class="form-group">
+                            <label>
+                                🔧 ประสานงานในด้าน (เลือกได้หลายข้อ) *
+                            </label>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-3">
+
+                            <label
+                                class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-black cursor-pointer transition duration-200">
+                                <input type="checkbox" name="coordination" value="งานถ่ายภาพ"
+                                    class="mr-3 text-blue-600" />
+                                <span>📸 งานถ่ายภาพ</span>
+                            </label>
+
+                            <label
+                                class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-black cursor-pointer transition duration-200">
+                                <input type="checkbox" name="coordination" value="งานถ่ายภาพ (ห้อง studio)"
+                                    class="mr-3 text-blue-600" />
+                                <span>📸 งานถ่ายภาพ (ห้อง studio)</span>
+                            </label>
+
+                            <label
+                                class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-black cursor-pointer transition duration-200">
+                                <input type="checkbox" name="coordination" value="งานวิดีโอ"
+                                    class="mr-3 text-blue-600" />
+                                <span>🎥 งานวิดีโอ</span>
+                            </label>
+
+                            <label
+                                class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-black cursor-pointer transition duration-200">
+                                <input type="checkbox" name="coordination" value="งานโสตฯ (เครื่องเสียงหอประชุม อบจ.)"
+                                    class="mr-3 text-blue-600" />
+                                <span>🔊 งานโสตฯ (เครื่องเสียงหอประชุม อบจ.)</span>
+                            </label>
+
+                            <label
+                                class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-black cursor-pointer transition duration-200">
+                                <input type="checkbox" name="coordination" value="งานโสตฯ (เครื่องเสียงห้องเฟื่องฟ้า)"
+                                    class="mr-3 text-blue-600" />
+                                <span>🔊 งานโสตฯ (เครื่องเสียงห้องเฟื่องฟ้า)</span>
+                            </label>
+
+
+                            <label
+                                class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-black cursor-pointer transition duration-200">
+                                <input type="checkbox" name="coordination" value="งานอื่นๆ" class="mr-3 text-blue-600"
+                                    id="otherCheck" />
+                                <span>⚙️ งานอื่นๆ</span>
+                            </label>
+                        </div>
+                        <div id="otherDetails" class="form-group mt-3 hidden">
+                            <input type="text" name="otherWork"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+                                placeholder="โปรดระบุงานอื่นๆ" />
+                        </div>
+                        <div class="form-group"></div>
+
+                        <!-- รายละเอียดเพิ่มเติม -->
+                        <div class="form-group">
+                            <label>
+                                📝 รายละเอียดเพิ่มเติม/สถานที่จัดกิจกรรม
+                                เพื่อการประสานงานอย่างมีประสิทธิภาพ
+                            </label>
+                            <textarea name="additionalDetails" rows="4"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+                                placeholder="กรุณาระบุรายละเอียดเพิ่มเติม เช่น ระบุประธานและเวลาเปิดงานให้ชัดเจน ฯลฯ"></textarea>
+                        </div>
+                        <!-- ไฟล์แนบ -->
+                        <div class="form-group">
+                            <label>
+                                📎 ไฟล์คำสั่ง หรือ กำหนดการจัดงาน
+                            </label>
+                            <input type="file" name="attachedFile" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+                            <p class="text-sm text-gray-500 mt-1">
+                                รองรับไฟล์: PDF, Word, รูปภาพ (ขนาดไม่เกิน 10MB)
+                            </p>
+                        </div>
+                        <!-- Submit Button -->
+                        <div class="form-group">
+                            <button type="submit"
+                                class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-4 px-6 rounded-lg hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition duration-200 shadow-lg">
+                                <span class="submit-text">📤 ส่งคำขอประสานงาน</span>
+                                <span class="loading">⏳ กำลังส่งข้อมูล...</span>
+                            </button>
+                        </div>
+                    </form>
+                    <!-- Success Message -->
+                    <div class="success bg-green-50 border border-green-200 rounded-lg p-4 mt-6">
+                        <div class="flex items-center">
+                            <span class="text-2xl mr-3">✅</span>
+                            <div>
+                                <h3 class="text-green-800 font-semibold">ส่งคำขอสำเร็จ!</h3>
+                                <p class="text-green-700">
+                                    ข้อมูลของคุณได้รับการบันทึกแล้ว กรณีขอเวลาเรียนให้นักเรียนบันทึกภาพและวิดีโอ
+                                    กรุณาติดต่อเพิ่มเติมขอรายชื่อที่ครูพงศกรและครูปาณิศา
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Error Message -->
+                    <div class="error bg-red-50 border border-red-200 rounded-lg p-4 mt-6">
+                        <div class="flex items-center">
+                            <span class="text-2xl mr-3">❌</span>
+                            <div>
+                                <h3 class="text-red-800 font-semibold">เกิดข้อผิดพลาด</h3>
+                                <p class="text-red-700">
+                                    ไม่สามารถส่งข้อมูลได้ กรุณาลองใหม่อีกครั้ง
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="text-center mt-8 text-white">
+                <p class="scale-150 font-semibold">BLM Smart ICT I "Smart Service for Smart School" <br>
+                    ศูนย์เทคโนโลยีสารสนเทศและการสื่อสาร (ICT) โรงเรียนบางละมุง </p>
+            </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-copyright">
+                © 2025 ICT Banglamung School. All rights reserved. | Developed by Thanadon Methawee & Pongsakorn
+                Saengphoem
+            </div>
+            <div class="footer-links">
+                <a href="#privacy" onclick="event.preventDefault(); alert('Privacy Policy page would go here');">Privacy
+                    Policy</a>
+                <a href="#terms" onclick="event.preventDefault(); alert('Terms of Service page would go here');">Terms
+                    of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to top button -->
+    <div class="scroll-to-top" id="scrollToTop">
+        <span>↑</span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/blm-school/ict@main/index_js.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/blm-school/ict@main/calendar_js.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/blm-school/ict@main/form_js.js"></script>
+
+
+    <script>
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                // ใช้ scrollIntoView เหมือนเดิม
+                element.scrollIntoView({ behavior: 'smooth' });
+
+                // อัปเดตสถานะ Active
+                const items = document.querySelectorAll('.menu-item');
+                items.forEach(item => item.classList.remove('active'));
+
+                // ค้นหาตัวที่ถูกคลิกและใส่ class active
+                event.currentTarget.classList.add('active');
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>
